@@ -11,25 +11,14 @@ public class Product {
     @Id
     @GeneratedValue
     private int id;
+
     private String name;
     private double price;
-    private String docName;
-    private byte[] file;
-
+    public String getUrlPayload;
     public int getId() {
         return id;
     }
 
-
-
-    public byte[] getFile() {return file;}
-    @JsonProperty("file")
-    public void setFile(byte[] file){this.file = file;}
-
-    public String getDocName() {return docName;}
-
-    @JsonProperty("docName")
-    public void setDocName(String docName) {this.docName = docName;}
 
     @JsonIgnoreProperties
     public void setId(int id) {
@@ -56,7 +45,7 @@ public class Product {
     }
 
     public String getUrlPayload() {
-        return "/purchase/product?id=" + id;
+        return "http://127.0.0.1:5500/product.html?id=" + id;
     }
 
 }

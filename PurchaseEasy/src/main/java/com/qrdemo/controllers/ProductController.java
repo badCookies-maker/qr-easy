@@ -27,7 +27,6 @@ public class ProductController {
     @Autowired
     private ProductServiceImpl productService;
 
-
     @PutMapping
     @CrossOrigin
     public ResponseEntity<Void> add(@RequestBody Product product) {
@@ -54,7 +53,6 @@ public class ProductController {
         productService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-
 }
+
+

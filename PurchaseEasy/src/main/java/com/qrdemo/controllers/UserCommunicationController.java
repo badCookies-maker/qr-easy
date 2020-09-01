@@ -25,27 +25,10 @@ public class UserCommunicationController {
     private ProductServiceImpl productService;
 
     @GetMapping(value = "qrcode/{id}", produces = {MediaType.IMAGE_JPEG_VALUE})
-    public ResponseEntity<byte[]> generateQr(@PathVariable("id") int id, @RequestHeader("host") String host) {
-
+    public ResponseEntity<byte[]> generateQr(@PathVariable("id") int id) {
         Product product = productService.getProductById(id);
-        String url = "http://" + host + productService.getProductById(id);
         byte[] binaryData = QrCodeBuildHelper.createQrCode(product.getUrlPayload());
         return new ResponseEntity<>(binaryData, HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/decodeByte/{id:.+}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ResponseEntity<byte[]> getDecoderByte(@PathVariable("id")int id, HttpServletResponse response) {
-        byte[] textBite = productService.getProductById(id).getFile();
-        System.out.println(textBite);
-        return ResponseEntity.ok(textBite);
-    }
-
-    @RequestMapping(value = "/Image/{id:.+}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public void getImage(@PathVariable("id")int id, HttpServletResponse response) throws IOException {
-        byte[] image = productService.getProductById(id).getFile();
-        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-        response.getOutputStream().write(image);
-    }
-
 
 }
